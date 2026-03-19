@@ -40,21 +40,14 @@ export default function MainContent() {
       </div>
 
       {/* ── Content Grid ──
-           Mobile : 1 col  →  header (top) · photobooth (mid) · message (bot)
-           Desktop: 2 col  →  photobooth (left, row-span-2) · header + message (right) -->
-      */}
+           Mobile : 1 col  →  logo (1) · photobooth (2) · heading+message (3)
+           Desktop: 2 col  →  photobooth col-1 row-span-2 | logo col-2 row-1, heading+msg col-2 row-2
+      -->*/}
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-start md:items-center min-h-svh">
-        {/* ── Photobooth
-               Mobile : order-2 (middle)
-               Desktop: col-1, row 1-2  ── */}
-        <div className="order-2 md:col-start-1 md:row-start-1 md:row-span-2 flex justify-center w-full md:w-auto col-span-1">
-          <Photobooth />
-        </div>
-
-        {/* ── Header: Logo + Heading
+        {/* ── 1. Logo ──
                Mobile : order-1 (top)
                Desktop: col-2, row-1  ── */}
-        <div className="order-1 md:col-start-2 md:row-start-1 relative space-y-4 pt-4 md:pt-0">
+        <div className="order-1 md:col-start-2 md:row-start-1 relative flex flex-col items-center pt-4 md:pt-0">
           {/* Decorative rotated photo – mobile only, top-right corner */}
           <motion.div
             initial={{ opacity: 0, rotate: 6, scale: 0.8 }}
@@ -69,6 +62,7 @@ export default function MainContent() {
             />
             <div className="absolute inset-0 bg-background/10" />
           </motion.div>
+
           {/* Floating Moon – desktop only */}
           <motion.div
             animate={{ y: [0, -10, 0] }}
@@ -109,7 +103,6 @@ export default function MainContent() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-            className="flex items-center justify-center"
           >
             <img
               src="/logo.png"
@@ -117,13 +110,25 @@ export default function MainContent() {
               className="w-16 h-16 md:w-24 md:h-24 object-cover rounded-full ring-2 ring-background/60 drop-shadow-xl"
             />
           </motion.div>
+        </div>
 
+        {/* ── 2. Photobooth ──
+               Mobile : order-2 (middle)
+               Desktop: col-1, row 1-2  ── */}
+        <div className="order-2 md:col-start-1 md:row-start-1 md:row-span-2 flex justify-center w-full md:w-auto">
+          <Photobooth />
+        </div>
+
+        {/* ── 3. Heading + Message + Icons ──
+               Mobile : order-3 (bottom)
+               Desktop: col-2, row-2  ── */}
+        <div className="order-3 md:col-start-2 md:row-start-2 space-y-4 md:space-y-8 pb-8 md:pb-0">
           {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-            className="font-pacifico text-foreground leading-tight text-center md:text-left [text-shadow:0_2px_12px_rgba(0,0,0,0.45),0_1px_4px_rgba(0,0,0,0.3)] md:[text-shadow:none]"
+            className="font-pacifico text-foreground leading-tight text-center md:text-left [text-shadow:0_2px_12px_rgba(0,0,0,0.4),0_1px_4px_rgba(0,0,0,0.25)] md:[text-shadow:none]"
             style={{
               fontSize: "clamp(1.5rem, 6vw, 4rem)",
               textWrap: "balance",
@@ -144,12 +149,8 @@ export default function MainContent() {
               strokeWidth={0}
             />
           </motion.h1>
-        </div>
 
-        {/* ── Message Card + Icons
-               Mobile : order-3 (bottom)
-               Desktop: col-2, row-2  ── */}
-        <div className="order-3 md:col-start-2 md:row-start-2 space-y-4 md:space-y-8 pb-8 md:pb-0">
+          {/* Message Card */}
           <motion.div
             className="bg-background/60 backdrop-blur-md md:bg-primary/20 md:backdrop-blur-none p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-white/20 md:border-primary/30 md:border-2 shadow-sm md:shadow-none"
             initial={{ x: 20, opacity: 0 }}
@@ -166,6 +167,7 @@ export default function MainContent() {
             </p>
           </motion.div>
 
+          {/* Floating Icons */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
