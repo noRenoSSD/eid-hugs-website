@@ -11,6 +11,16 @@ const floatingIcons = [
 export default function MainContent() {
   return (
     <div className="relative min-h-svh overflow-hidden">
+      {/* ── Mobile: full-bleed photo background with gradient ── */}
+      <div className="block md:hidden absolute inset-0 pointer-events-none">
+        <img
+          src="/foto1.jpg"
+          alt=""
+          className="w-full h-full object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/55 to-background" />
+      </div>
+
       {/* ── SVG Clip Path ── */}
       <svg width="0" height="0" className="absolute">
         <defs>
@@ -20,9 +30,9 @@ export default function MainContent() {
         </defs>
       </svg>
 
-      {/* ── Background Photo – desktop only ── */}
+      {/* ── Desktop: curved background photo left side ── */}
       <div
-        className="absolute inset-y-0 left-0 w-[55%] pointer-events-none hidden md:block"
+        className="absolute inset-y-0 left-0 w-[55%] pointer-events-none hidden md:block z-0"
         style={{ clipPath: "url(#curve-clip)" }}
       >
         <img src="/foto1.jpg" alt="" className="w-full h-full object-cover" />
@@ -33,18 +43,32 @@ export default function MainContent() {
            Mobile : 1 col  →  header (top) · photobooth (mid) · message (bot)
            Desktop: 2 col  →  photobooth (left, row-span-2) · header + message (right) -->
       */}
-      <div className="relative max-w-5xl mx-auto px-6 py-12 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-start md:items-center min-h-svh">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-start md:items-center min-h-svh">
         {/* ── Photobooth
                Mobile : order-2 (middle)
                Desktop: col-1, row 1-2  ── */}
-        <div className="order-2 md:col-start-1 md:row-start-1 md:row-span-2 flex justify-center">
+        <div className="order-2 md:col-start-1 md:row-start-1 md:row-span-2 flex justify-center w-full md:w-auto col-span-1">
           <Photobooth />
         </div>
 
         {/* ── Header: Logo + Heading
                Mobile : order-1 (top)
                Desktop: col-2, row-1  ── */}
-        <div className="order-1 md:col-start-2 md:row-start-1 relative space-y-4 pt-8 md:pt-0">
+        <div className="order-1 md:col-start-2 md:row-start-1 relative space-y-4 pt-4 md:pt-0">
+          {/* Decorative rotated photo – mobile only, top-right corner */}
+          <motion.div
+            initial={{ opacity: 0, rotate: 6, scale: 0.8 }}
+            animate={{ opacity: 1, rotate: 8, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
+            className="block md:hidden absolute -top-2 -right-3 w-20 h-20 rounded-xl overflow-hidden shadow-xl ring-2 ring-background/60 z-10"
+          >
+            <img
+              src="/foto2.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-background/10" />
+          </motion.div>
           {/* Floating Moon – desktop only */}
           <motion.div
             animate={{ y: [0, -10, 0] }}
@@ -90,7 +114,7 @@ export default function MainContent() {
             <img
               src="/logo.png"
               alt="Logo"
-              className="w-16 h-16 md:w-24 md:h-24 object-cover rounded-full"
+              className="w-16 h-16 md:w-24 md:h-24 object-cover rounded-full ring-2 ring-background/60 drop-shadow-xl"
             />
           </motion.div>
 
@@ -99,7 +123,7 @@ export default function MainContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-            className="font-pacifico text-foreground leading-tight text-center md:text-left"
+            className="font-pacifico text-foreground leading-tight text-center md:text-left [text-shadow:0_2px_12px_rgba(0,0,0,0.45),0_1px_4px_rgba(0,0,0,0.3)] md:[text-shadow:none]"
             style={{
               fontSize: "clamp(1.5rem, 6vw, 4rem)",
               textWrap: "balance",
@@ -127,7 +151,7 @@ export default function MainContent() {
                Desktop: col-2, row-2  ── */}
         <div className="order-3 md:col-start-2 md:row-start-2 space-y-4 md:space-y-8 pb-8 md:pb-0">
           <motion.div
-            className="bg-primary/20 p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-primary/30 md:border-2"
+            className="bg-background/60 backdrop-blur-md md:bg-primary/20 md:backdrop-blur-none p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-white/20 md:border-primary/30 md:border-2 shadow-sm md:shadow-none"
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.7, ease: [0.23, 1, 0.32, 1] }}

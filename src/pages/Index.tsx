@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import SplashScreen from '@/components/SplashScreen';
-import MainContent from '@/components/MainContent';
-import MusicToggle from '@/components/MusicToggle';
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import SplashScreen from "@/components/SplashScreen";
+import MainContent from "@/components/MainContent";
+import MusicToggle from "@/components/MusicToggle";
 
-const AUDIO_SRC = ''; // User will fill this
+const AUDIO_SRC = "/music.mp3";
 
 export default function Index() {
   const [isOpen, setIsOpen] = useState(false);
